@@ -1,11 +1,8 @@
-
 const express = require('express')
 const exphbs  = require('express-handlebars');
 
-
 const app = express()
 const morgan = require('morgan')
-
 
 app.use(morgan('dev'))
 app.engine('hbs', exphbs({
@@ -13,15 +10,21 @@ app.engine('hbs', exphbs({
     defaultLayout: 'bs4.hbs'
 }));
 
+app.use(express.urlencoded({
+    extended: true
+}));
+
 app.set('view engine', 'hbs');
 app.get('/', function (req, res) {
     res.render('home');
-}
+})
 
 
 app.get('/bs4', function(req, res){
     res.sendFile(__dirname + '/bs4.html')
 })
+
+app.use('/admin/categories', require('./controllers/categories.route'))
 
 const port = 3000
 app.listen(port, () => {
