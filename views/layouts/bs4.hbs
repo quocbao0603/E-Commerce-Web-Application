@@ -55,10 +55,20 @@
       <div class="col-sm-3">
         <div class="card mb-3">
           <h4 class="card-header">
-            Featured
+            Categories
           </h4>
           <div class="list-group list-group-flush">
-            <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
+            {{#each lcCategories }}
+            
+               <a href="/products/byCat/{{CatID}}" class="list-group-item list-group-item-action {{#if IsActive}} active {{/if}}" aria-current="true">
+               <i class="fa fa-caret-right" aria-hidden="true"></i>
+                {{CatName}}
+              {{#if ProductCount}}
+                <span class="badge badge-pill badge-danger float-right"> {{ProductCount}} </span>  
+              {{/if}}
+              </a>
+            {{/each}}
+            {{!-- <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
               The current link item
             </a>
             <a href="#" class="list-group-item list-group-item-action">A second link item</a>
@@ -66,7 +76,7 @@
             <a href="#" class="list-group-item list-group-item-action">A fourth link item</a>
             <a href="#" class="list-group-item list-group-item-action disabled" tabindex="-1" aria-disabled="true">A
               disabled link
-              item</a>
+              item</a> --}}
           </div>
         </div>
         <div class="card">

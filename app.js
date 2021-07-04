@@ -1,32 +1,22 @@
 const express = require('express')
-const exphbs  = require('express-handlebars');
-
 const app = express()
-const morgan = require('morgan')
 
-app.use(morgan('dev'))
-app.engine('hbs', exphbs({
-    //defaultLayout: 'main.hbs'
-    defaultLayout: 'bs4.hbs'
-}));
+const morgan = require('morgan')
+app.use(morgan('dev'));
 
 app.use(express.urlencoded({
     extended: true
 }));
 
-app.set('view engine', 'hbs');
-app.get('/', function (req, res) {
-    res.render('home');
-})
+app.use('/public/', express.static('public'))
 
 
-app.get('/bs4', function(req, res){
-    res.sendFile(__dirname + '/bs4.html')
-})
+require('./middlewares/view.mdw')(app);
+require('./middlewares/locals.mdw')(app);
+require('./middlewares/route.mdw')(app);
 
-app.use('/admin/categories', require('./controllers/categories.route'))
 
-const port = 3000
+const port = 3000;
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`)
+    console.log(`Example app listening at http://localhost:${port}`);
 })

@@ -31,4 +31,35 @@ router.post('/add', async function(req, res){
 //common js
 //es module <=> import
 
+//edit danh sach
+router.get('/edit', async function(req, res){
+    const id = req.query.id;
+    const category = await categoriesModel.findByID(id);
+    if (category == null){
+        res.redirect('/admin/categories');
+    }
+    console.log(id);
+    res.render('vwCategories/edit', {
+        category
+    });
+})
+
+router.post('/patch', async function(req, res){
+    //console.log(req.body);
+    //const update_category = {
+    //    CatID: req.body.txtCatID, 
+    //    CatName: req.body.txtCatName
+    //}
+    //bat buoc phai co await de co ket qua res.
+    await categoriesModel.patch(req.body);
+    //console.log('TEst Category: ' + update_category.CatID + update_category.CatName);
+    res.redirect('/admin/categories');
+})
+router.post('/del', async function(req, res){
+    //console.log(req.body);
+    await categoriesModel.del(req.body.CatID);
+    //console.log(rs);
+    res.redirect('/admin/categories');
+})
+
 module.exports = router;
