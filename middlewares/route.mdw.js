@@ -11,5 +11,6 @@ module.exports = function(app) {
     app.use('/admin/categories/', require('../controllers/categories.route'));
     app.use('/products/', require('../controllers/product-user.route'));
     app.use('/account/', require('../controllers/account.route'));
+    app.use('/demo/', require('../controllers/demo.route'));
 
 }
